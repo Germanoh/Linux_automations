@@ -13,13 +13,12 @@ def limpa_terminal():
         os.system('clear')
     else:
         os.system('cls')
-
+		
 limpa = input("Limpar conteúdo anterior da tela [S/N]? ")
 if (limpa.lower() == 's'):
     limpa_terminal()
 else:
 	pass
-
 
 try:
     arq = sys.argv[1].split('.') 	#Se houver erro aqui, arg[1] inexistente, não foi informado arquivo para descompactação
@@ -30,19 +29,25 @@ except:
 tipos = ['bz2', 'rar', 'tar', 'tar.bz2', 'tar.gz', 'tar.xz', 'zip']  #talvez possa ser procura na lista, ideia futura
 	
 if(arq[len(arq)-1] == 'rar'):
-    os.system('unrar x ' + arq)
+    os.system('unrar x ' + arq) 		# Arquivo .rar
 elif(arq[len(arq)-1] == 'tar'):
-    os.system('tar -xvf ' + arq)
-elif(arq[len(arq)-1] == 'bz2'):			# ressalva futura
+    os.system('tar -xvf ' + arq)		# Arquivo .tar
+elif(arq[len(arq)-1] == 'bz2'):
 	if(arq[len(arq)-2] == 'tar'):
-    	os.system('tar -jxvf ' + arq)
+    	os.system('tar -jxvf ' + arq)		# Arquivo .tar.bz2
 	else:
 		print("modelo " + sys.argv[1] + "ainda não suportado")
 elif(arq[len(arq)-1] == 'xz'):
-    os.system('tar -Jxxvf ' + arq)
+	if(arq[len(arq)-2] == 'tar'):
+    	os.system('tar -Jxxvf ' + arq)		# Arquivo .tar.xz
+	else:
+		print("modelo " + sys.argv[1] + "ainda não suportado")    
 elif(arq[len(arq)-1] == 'gz'):
-    os.system('tar -zxvf ' + arq)
+	if(arq[len(arq)-2] == 'tar'):
+    	os.system('tar -zxvf ' + arq)		# Arquivo .tar.gz
+	else:
+		print("modelo " + sys.argv[1] + "ainda não suportado")
 elif(arq[len(arq)-1] == 'zip'):
-	os.system('unzip ' + arq)
+	os.system('unzip ' + arq)		# Arquivo .zip
 else:
-	print('Não se enquadra nos parâmetros de descompactação')
+	print('O arquivo não se enquadra nos parâmetros de descompactação')
